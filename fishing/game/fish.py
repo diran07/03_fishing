@@ -37,9 +37,11 @@ FISH_TYPES = {
 
 def make_fish(kind, x, y, direction=1):
     cfg = FISH_TYPES[kind]
-    return Fish(
+    fish = Fish(
         x=x, y=y,
         speed=cfg["speed"] * direction,
         width=cfg["width"], height=cfg["height"],
         point_value=cfg["point_value"], color=cfg["color"],
     )
+    fish.kind = kind
+    return fish
