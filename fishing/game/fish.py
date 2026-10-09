@@ -28,3 +28,18 @@ class Fish:
             int(self.x - self.width / 2), int(self.y - self.height / 2),
             self.width, self.height,
         )
+
+FISH_TYPES = {
+    "slow": {"speed": 2, "point_value": 10, "width": 40, "height": 20, "color": (80, 180, 220)},
+    "fast": {"speed": 5, "point_value": 30, "width": 24, "height": 12, "color": (240, 200, 40)},
+}
+
+
+def make_fish(kind, x, y, direction=1):
+    cfg = FISH_TYPES[kind]
+    return Fish(
+        x=x, y=y,
+        speed=cfg["speed"] * direction,
+        width=cfg["width"], height=cfg["height"],
+        point_value=cfg["point_value"], color=cfg["color"],
+    )
