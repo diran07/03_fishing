@@ -14,6 +14,7 @@ from game.fish import Fish
 from game.catch import check_catch
 from game.renderer import WIDTH, HEIGHT, SURFACE_Y, MAX_DEPTH_Y
 from game.fish import make_fish
+import random
 
 
 
@@ -29,11 +30,13 @@ class GameEngine:
         ]
         self.hooked_fish = None
         self.score = 0
+    
+    def cast(self):
+        self.hook.start_cast()
+    
 
     def update(self):
-        if self.hook.state == IDLE:
-            self.hook.start_cast()
-
+        
         self.hook.update()
 
         for fish in self.fish_list:
@@ -44,7 +47,9 @@ class GameEngine:
             self.hooked_fish.y = self.hook.y
             if self.hook.state == IDLE:
                 self.score += self.hooked_fish.point_value
+                kind = self.hooked_fish.kind
                 self.hooked_fish = None
+                self.fish_list.append(make_fish(kind, x=-40, y=random.randint(150, 420)))
         else:
             caught = check_catch(self.hook, self.fish_list)
             if caught is not None:

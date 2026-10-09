@@ -24,6 +24,8 @@ class Hook:
         self.state = IDLE
 
     def start_cast(self):
+        if self.state != IDLE:
+            return
         self.state = CASTING
         self.y = self.surface_y
 
